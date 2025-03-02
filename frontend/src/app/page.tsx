@@ -18,3 +18,13 @@ export default function OpsDashboard() {
   useEffect(() => {
     setLoading(true);
     setError("");
+    fetch(`http://localhost:4023/ops/items?page=${page}&limit=10`)
+      .then((r) => {
+        if (!r.ok) throw new Error("failed to load");
+        return r.json();
+      })
+      .then((d) => setItems(d.items || []))
+      .catch((e) => setError(e.message))
+      .finally(() => setLoading(false));
+  }, [page]);
+

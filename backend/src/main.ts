@@ -15,3 +15,12 @@ class OpsController {
   }
 
   @Get("items")
+  async list(@Query("page") pageStr = "1", @Query("limit") limitStr = "10") {
+    const page = Math.max(1, Number(pageStr) || 1);
+    const limit = Math.min(50, Math.max(1, Number(limitStr) || 10));
+    const offset = (page - 1) * limit;
+    const rows = (await pool.query("SELECT * FROM ops_items ORDER BY id DESC LIMIT $1 OFFSET $2", [limit, offset])).rows;
+    return { page, limit, items: rows };
+  }
+
+  @Patch("items/:id")
