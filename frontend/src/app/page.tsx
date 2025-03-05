@@ -28,3 +28,13 @@ export default function OpsDashboard() {
       .finally(() => setLoading(false));
   }, [page]);
 
+  return (
+    <main style={{ maxWidth: 760, margin: "32px auto", fontFamily: "sans-serif", padding: "0 16px" }}>
+      <h1>Operations Dashboard</h1>
+      {loading && <p>Loading...</p>}
+      {error && <p style={{ color: "crimson" }}>{error}</p>}
+      <ul>
+        {items.map((it) => (
+          <li key={it.id}>
+            #{it.id} {it.title} ({it.owner_email}) — <strong>{it.status}</strong>
+          </li>

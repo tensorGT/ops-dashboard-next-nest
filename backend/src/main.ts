@@ -24,3 +24,12 @@ class OpsController {
   }
 
   @Patch("items/:id")
+  async updateStatus(
+    @Param("id") id: string,
+    @Headers("x-role") role: string,
+    @Body() body: { status: "approved" | "rejected" }
+  ) {
+    if (role !== "admin") throw new ForbiddenException("need admin role!");
+    return (await pool.query("UPDATE ops_items SET status = $1 WHERE id = $2 RETURNING *", [body.status, Number(id)])).rows[0];
+  }
+}
