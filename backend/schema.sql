@@ -3,3 +3,5 @@ CREATE TABLE IF NOT EXISTS ops_items (
   title VARCHAR(140) NOT NULL,
   owner_email VARCHAR(140) NOT NULL,
   status VARCHAR(24) NOT NULL DEFAULT 'pending' CHECK (status IN ('pending', 'approved', 'rejected')),
+  created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+);

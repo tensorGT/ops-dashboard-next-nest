@@ -38,3 +38,13 @@ export default function OpsDashboard() {
           <li key={it.id}>
             #{it.id} {it.title} ({it.owner_email}) — <strong>{it.status}</strong>
           </li>
+        ))}
+      </ul>
+      <div style={{ display: "flex", gap: 8, marginTop: 12 }}>
+        <button disabled={page <= 1} onClick={() => setPage(page - 1)}>Prev</button>
+        <span>Page {page}</span>
+        <button onClick={() => setPage(page + 1)}>Next</button>
+      </div>
+    </main>
+  );
+}

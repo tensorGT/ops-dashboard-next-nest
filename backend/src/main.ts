@@ -33,3 +33,12 @@ class OpsController {
     return (await pool.query("UPDATE ops_items SET status = $1 WHERE id = $2 RETURNING *", [body.status, Number(id)])).rows[0];
   }
 }
+
+@Module({ controllers: [OpsController] })
+class AppModule {}
+
+async function bootstrap() {
+  const app = await NestFactory.create(AppModule, { cors: true });
+  await app.listen(process.env.PORT || 4023);
+}
+bootstrap();
